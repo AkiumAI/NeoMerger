@@ -37,3 +37,9 @@ merge recipe, training info, and trigger words.
 
 <img width="1828" height="925" alt="neomergerinspectui" src="https://github.com/user-attachments/assets/4915ecb6-6daf-408b-982b-8a3504e48a3b" />
 
+## Acknowledgements
+
+Big thanks to the beta testers who helped shape NeoMerger:
+
+- [Vetehine](https://civitai.com/user/Vetehine) — testing, feedback and bug reports
+- [EarthboundAI](https://civitai.com/user/EarthboundAI) — testing, feedback and bug reports
