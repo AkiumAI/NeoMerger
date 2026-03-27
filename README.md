@@ -63,13 +63,13 @@ stable-diffusion-webui-forge/
 
 ## Usage
 
-![NeoMerger overview](images/overview.png)
+<img width="1851" height="919" alt="neomergerui" src="https://github.com/user-attachments/assets/fe312e74-b165-4e5a-8114-0439d43d4129" />
 
 ---
 
 ### Merge tab
 
-![Easy mode](images/merge_easy.png)
+<img width="1242" height="566" alt="neomergereasyblocks" src="https://github.com/user-attachments/assets/6875598d-94f6-4f44-8f66-185cfa9fc335" />
 
 Select two checkpoints (Model A and Model B), pick a merge method, and click **Run Merge**.
 
@@ -88,11 +88,12 @@ Select two checkpoints (Model A and Model B), pick a merge method, and click **R
 
 > **Experimental sliders** (Saturation, Contrast, Brightness, Sharpness, Lights & Darkness) are available in a collapsed section. Results vary between models and are not guaranteed.
 
-![Normal mode with descriptions](images/merge_normal.png)
+<img width="1217" height="925" alt="neomergerblocksui" src="https://github.com/user-attachments/assets/58311866-11a5-4666-a0fb-6a63fb588855" />
 
 **Normal mode** — direct control over all 20 SDXL blocks (BASE, IN00–IN08, MID, OUT00–OUT08). Toggle the description button to see what each block influences, with warnings for blocks where float values tend to cause issues.
 
-![Block Similarity Analyzer](images/similarity.png)
+<img width="686" height="841" alt="neomergeranalyzerui" src="https://github.com/user-attachments/assets/fd9398bc-d833-4eeb-b6c6-2d9ac1c04ddc" />
+
 
 **Block Similarity Analyzer** — before merging, analyze how different the two models are at the block level. Shows a color-coded chart from blue (nearly identical) to red (very different), with semantic tags describing what each block influences.
 
@@ -100,7 +101,7 @@ Select two checkpoints (Model A and Model B), pick a merge method, and click **R
 
 ### LoRA Tools tab
 
-![LoRA Tools tab](images/lora_tools.png)
+<img width="1834" height="947" alt="neomergerloraui" src="https://github.com/user-attachments/assets/7d81b6ea-d1fe-4758-8c9a-89c6ab995d22" />
 
 **Bake-in** — permanently fuse a LoRA into a checkpoint at a chosen strength. Easy mode uses a single strength slider (0–2). Advanced mode gives you per-category control with the same semantic sliders as the Merge tab.
 
@@ -110,7 +111,7 @@ Select two checkpoints (Model A and Model B), pick a merge method, and click **R
 
 ### Inspect tab
 
-![Inspect tab with metadata](images/inspect.png)
+<img width="1828" height="925" alt="neomergerinspectui" src="https://github.com/user-attachments/assets/abea4721-32b6-48da-b001-f7f693ca5a7d" />
 
 Load any model or LoRA to inspect:
 - File size, SHA256 hash, detected architecture
@@ -166,9 +167,8 @@ Big thanks to the beta testers who helped shape NeoMerger:
 
 ## Author
 
-**AkiumAI** — [github.com/AkiumAI](https://github.com/AkiumAI) · [CivitAI](https://civitai.com/user/AkiumAI)
+**AkiumAI** — [github.com/AkiumAI](https://github.com/AkiumAI) · [CivitAI](https://civitai.com/user/Akium)
 
-© 2025 AkiumAI — All rights reserved
 
 ---
 
