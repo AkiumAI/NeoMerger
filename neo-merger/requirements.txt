@@ -1,7 +1,0 @@
-# NeoMerger dependencies
-# These are almost always already present in any Forge/A1111 installation.
-# install.py handles automatic installation if missing.
-
-torch>=2.0.0
-safetensors>=0.3.0
-Pillow>=9.0.0
