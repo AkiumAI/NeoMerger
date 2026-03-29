@@ -135,7 +135,6 @@ Available in all merge tabs:
 
 - **RAM** — at least 16 GB recommended for SDXL merges (two SDXL models = ~12 GB RAM during merge)
 - **Disk** — ~7 GB free per merge output
-- **GPU** — not required for merging (CPU only)
 
 ---
 
