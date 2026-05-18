@@ -7,14 +7,14 @@
 
 **Advanced model merging extension for Forge Neo, Forge, reForge, and AUTOMATIC1111.**
 
-Merge SDXL, Pony, Illustrious and SD 1.x checkpoints with block-level precision — no command line required.
+Merge SDXL, Pony, Illustrious, Anima and SD 1.x checkpoints with block-level precision — no command line required.
 
 ---
 
 ## Features
 
-- **Block Merge** — blend two checkpoints at the block level with Easy (semantic) or Normal (per-block) mode
-- **LoRA Bake-in** — permanently fuse a LoRA into a checkpoint
+- **Block Merge** — blend two checkpoints at the block level with Easy (semantic), Normal (per-block SDXL) or Anima (per-block DiT) mode
+- **LoRA Bake-in** — permanently fuse a LoRA into a checkpoint (SDXL and Anima supported)
 - **LoRA Merge** — combine two LoRA files into one
 - **Model Inspector** — read architecture, metadata, merge recipes, and training info from any `.safetensors` or `.ckpt` file
 - **Precision control** — save in fp16, bf16, fp32, or fp8
@@ -36,6 +36,7 @@ Merge SDXL, Pony, Illustrious and SD 1.x checkpoints with block-level precision 
 | Architecture | Block Merge | LoRA Tools |
 |---|---|---|
 | SDXL / Pony / Illustrious | ✅ Full support | ✅ |
+| Anima | ✅ 28 DiT blocks (BLK_00–BLK_27) | ✅ Bake-in (UNet layers) |
 | SD 1.x | ⚠️ Works, block labels are SDXL-based | ✅ |
 | Flux | ❌ Not supported | ⚠️ Partial |
 
