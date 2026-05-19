@@ -1,5 +1,6 @@
 # NeoMerger
 
+[![ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/akinak4)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Forge Neo](https://img.shields.io/badge/Forge%20Neo-compatible-green)
@@ -169,6 +170,18 @@ Big thanks to the beta testers who helped shape NeoMerger:
 
 **AkiumAI** — [github.com/AkiumAI](https://github.com/AkiumAI) · [CivitAI](https://civitai.com/user/Akium)
 
+---
+
+## Support the project
+
+If NeoMerger has been useful to you, consider supporting continued development on Ko-fi.
+Every contribution helps keep this project free, open-source, and non-commercial.
+
+<a href="https://ko-fi.com/akinak4">
+  <img src="https://github.com/user-attachments/assets/24adecb9-27d9-451b-ba92-ad3d0f607d7c" alt="Support NeoMerger on Ko-fi" width="100%" />
+</a>
+
+Thank you! ☕
 
 ---
 
