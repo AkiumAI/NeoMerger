@@ -63,3 +63,9 @@
 - Default behavior of Easy mode no longer dilutes block weights with experimental categories. Existing presets keep their old behavior on load (toggle defaults to off, matching how those presets were used before).
 **Notes**
 - Old presets (pre-1.3.0) load fine — `use_exp` defaults to off and `base_alpha` defaults to 0.5.
+---
+[1.3.1]
+Fixed
+
+LoRA Bake-in crashed on LoRAs containing convolutional layers with non-1×1 kernels (RuntimeError: Expected size for first two dimensions of batch2 tensor to be [...]). The matmul reconstruction now handles Conv2d layers with both the standard kohya convention (down: [rank, in_ch, kh, kw]) and the inverted-rank variant some trainers produce.
+Individual layers whose shape can't be reconciled are now skipped with a ⚠️ Skipped <layer> warning instead of aborting the whole bake — the rest of the LoRA still fuses.
