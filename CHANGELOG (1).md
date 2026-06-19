@@ -69,3 +69,9 @@ Fixed
 
 - LoRA Bake-in crashed on LoRAs containing convolutional layers with non-1×1 kernels (RuntimeError: Expected size for first two dimensions of batch2 tensor to be [...]). The matmul reconstruction now handles Conv2d layers with both the standard kohya convention (down: [rank, in_ch, kh, kw]) and the inverted-rank variant some trainers produce.
 - Individual layers whose shape can't be reconciled are now skipped with a ⚠️ Skipped <layer> warning instead of aborting the whole bake — the rest of the LoRA still fuses.
+
+[1.3.2]
+**Added**
+
+- PEFT / Diffusers LoRA format support (`lora_A.weight` / `lora_B.weight` naming) in Bake-in, alongside the existing kohya/A1111 convention (`lora_down` / `lora_up`). Covers diffusers-trained and ai-toolkit LoRAs, including native Anima DiT LoRAs (`diffusion_model.` prefix). PEFT LoRAs store no `.alpha`, so scale defaults to 1.0.
+- Diffusers → kohya key-name conversion for SDXL LoRAs — trainers that save Diffusers-style block names (`lora_unet_down_blocks_*`) are remapped to kohya naming so they bake in correctly.
