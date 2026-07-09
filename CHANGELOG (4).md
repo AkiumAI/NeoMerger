@@ -79,31 +79,34 @@ Fixed
 ---
 ## [1.4.0]
 **Added**
-- Four new merge methods: **Task Arithmetic** (plain task-vector sum, supports negative alpha to *subtract* a style), **Breadcrumbs** (drops both outliers and noise, best for chained merges), **DELLA** (DARE with magnitude-ranked drop probabilities), **NuSLERP** (normalised SLERP with optional row-wise mode, supports block merge)
-- Method tuning controls — Filter strength slider plus an advanced accordion (DELLA epsilon, Breadcrumbs gamma, NuSLERP row-wise). Alpha slider extends to −1…+1 on task-vector methods
-- ⚡ Quick actions — "Add style" / "Remove style" one-click Breadcrumbs setup
-- 🧪 **Block Probe tab** — swaps blocks in memory (no disk merge) and generates one preview image per block / semantic group / selection, using the current txt2img settings, with alpha blend and auto arch detection. Requires the updated `javascript/neomerger.js`
-- Cross-prefix key matching (merge engine + Block Similarity) — Anima models saved under different prefixes (`net.` / `diffusion_model.` / `model.diffusion_model.`) now merge correctly; previously the merge silently kept only Model A. Key-match report in the terminal, with a warning below 50%
-- Block Similarity is now architecture-aware — Anima models use their 28 DiT blocks instead of collapsing into one
-- Inspect: "Anima (DiT)" architecture label
+- **Four new merge methods**:
+  - **Task Arithmetic** — the simplest of the new methods. Also works in reverse: with a negative Alpha you can *remove* a style from a model instead of adding it.
+  - **Breadcrumbs** — a "cleaner" merge that ignores both the extreme values and the tiny noise from Model B. The best pick when merging models that have already been merged many times.
+  - **DELLA** — like DARE, but smarter about what it keeps: important changes survive more often than minor ones.
+  - **NuSLERP** — a refined SLERP that produces smoother blends, with an optional row-wise mode for even cleaner results. Works with block merge.
+- **Filter strength slider** for Breadcrumbs and DELLA, plus an advanced ⚙️ accordion with fine-tuning options for each method. Defaults work well — you don't need to touch them.
+- ** Quick actions** — "Add style" and "Remove style" buttons that set everything up for you in one click. You just pick the models and press Merge.
+- ** Block Probe tab** — ever wondered *which* block controls what? The probe swaps one block at a time from Model B into your loaded model and generates a preview image for each, so you can literally *see* what every block does before committing to a merge. No files are written and no model reload is needed — it all happens in memory. Uses your current txt2img prompt and settings. Make sure `javascript/neomerger.js` is updated too.
+- Anima models saved by different tools now merge correctly together — previously some combinations looked like they merged but the result was just Model A. The terminal now also tells you how well the two models matched, and warns you if they look incompatible.
+- The Block Similarity Analyzer now understands Anima models and shows all 28 blocks (previously everything was lumped together).
+- The Inspect tab now correctly labels Anima checkpoints instead of calling them SDXL.
 
 **Fixed**
-- Anima LoRA bake ignored the Strength slider on blocks 20–27 (weight list was hard-coded to 20 entries) — weights are now built per-architecture. Advanced mode on Anima falls back to flat Strength with a warning, since the semantic categories are SDXL-only
-- kohya-naming Anima LoRAs (`lora_unet_blocks_N_...`): compound module names were broken by a blanket `_ → .` replace (`cross_attn` → `cross.attn`) so those layers were silently skipped — tails are now rebuilt around known compound tokens and mapped to their real block index
-- `get_anima_block_index` only recognised `net.blocks.` — other prefixes made every key fall to block 0 in Block Similarity
-- Bake-in forced fp16 on fused layers regardless of the selected output precision — now respects fp16/bf16/fp32/fp8 (bit-identical for fp16)
-- Integer tensors (e.g. int64 `position_ids`) were corrupted by the precision cast on save — non-floating tensors are now preserved
-- Corrupted byte in the `ff_net` regex replacement (literal `0x01` instead of `\1`) — dead code path, fixed for safety
+- Baking a LoRA into an Anima checkpoint at reduced strength wasn't actually reducing all of it — some layers were always fused at 100%. Now the Strength slider applies to the whole LoRA.
+- Some Anima LoRA layers were silently skipped during bake-in due to a naming issue — if your fused layer count seemed low, this was why. All layers fuse now.
+- Bake-in now respects the output precision you choose (fp32/bf16/fp8) instead of always producing fp16 internally.
+- Fixed a subtle issue where some non-weight data in checkpoints was being converted incorrectly on save.
 
 **Performance**
-- Lazy per-key tensor reading in the merge engine, Block Similarity and Block Probe — no more loading whole checkpoints into RAM (analyzing two SDXL models previously needed ~13 GB)
-- TIES / DARE / Breadcrumbs thresholds via `torch.kthvalue` instead of `torch.quantile` — exact at every size (quantile *sampled* above 16M elements) and ~8× faster: typical TIES merge ~800 s → ~200 s
-- DELLA ranks large tensors via quantile buckets instead of a full argsort; NuSLERP row-wise fully vectorised
-- Inspect is instant on any file size (reads the safetensors header, no tensor loading) and the SHA256 hash is cached until the file changes
-- Saving no longer builds a second cast copy of the state dict (lower peak RAM, mainly for fp32 sources)
+- **Merges use far less RAM** — models are read piece by piece from disk instead of being fully loaded into memory. Same for the Block Similarity Analyzer and the Block Probe. If merges used to make your PC crawl or swap, this is the release for you.
+- **TIES and DARE merges are ~4× faster** (a typical merge dropped from ~13 minutes to ~3), and the math is now exact even on very large models — previously it was slightly approximated on models above a certain size.
+- **Inspect is instant** on any file, even huge fp32 checkpoints, and the SHA256 hash is only computed once per file instead of on every click.
+- Lower peak RAM when saving, especially from fp32 source models.
 
-**Removed**
-- Dead `merge_checkpoints()` function, superseded by the unified merge engine
+**Notes**
+- DARE and DELLA are random by design: running the same merge twice gives slightly different (but equivalent) results. This was always true for DARE.
+- Block merge works with Weighted Sum, SLERP, Add Difference and NuSLERP. The other methods are global.
+- Old presets keep working — nothing changed in the format.
 
 **Notes**
 - DARE and DELLA drop weights at random by design, so running the same merge twice gives slightly different (statistically equivalent) results — this has always been true for DARE
