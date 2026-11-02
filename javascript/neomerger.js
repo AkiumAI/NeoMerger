@@ -92,18 +92,19 @@ function neomerger_install_hook_for(btn_id, prefix, flag) {
     return true;
 }
 
-// Try to install both hooks (Merge & Gen, and Block Probe). Retries until the
-// buttons exist in the DOM (tabs are lazily rendered), giving up after ~30 s
+// Try to install the hooks (Merge & Gen, Alpha Sweep, Block Probe). Retries until
+// the buttons exist in the DOM (tabs are lazily rendered), giving up after ~30 s
 // so a mismatched neomerger.py (missing a button) doesn't poll forever.
 let neomerger_install_attempts = 0;
 function neomerger_try_install() {
     const a = neomerger_install_hook_for('neomerger_mergegen_btn', 'neomerger_t2i', 'neomergerHooked');
+    const s = neomerger_install_hook_for('neomerger_sweep_btn',    'neomerger_t2i', 'neomergerSweepHooked');
     const b = neomerger_install_hook_for('neomerger_probe_btn',    'neomerger_pr',  'neomergerProbeHooked');
-    if (a && b) return;
+    if (a && s && b) return;
     if (++neomerger_install_attempts >= 60) {
         console.warn('[NeoMerger] gave up installing sync hooks after 60 attempts — '
-            + (a ? '' : '#neomerger_mergegen_btn ') + (b ? '' : '#neomerger_probe_btn ')
-            + 'not found. Is neomerger.py up to date?');
+            + (a ? '' : '#neomerger_mergegen_btn ') + (s ? '' : '#neomerger_sweep_btn ')
+            + (b ? '' : '#neomerger_probe_btn ') + 'not found. Is neomerger.py up to date?');
         return;
     }
     setTimeout(neomerger_try_install, 500);
